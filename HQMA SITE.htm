@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Queue Management App (HQMA) Wireframe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            /* Light gray background */
+        }
+
+        .screen-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            /* Softer shadow */
+            padding: 2.5rem;
+            /* Increased padding */
+            max-width: 2xl;
+            /* Max width for consistency */
+            width: 100%;
+            min-height: 500px;
+            /* Ensure some height for all screens */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .input-field {
+            border-radius: 8px;
+            /* Slightly rounded input fields */
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            /* Light gray border */
+        }
+
+        .btn-primary {
+            background-color: #10B981;
+            /* Green primary button */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #059669;
+            /* Darker green on hover */
+        }
+
+        .btn-secondary {
+            background-color: #e5e7eb;
+            /* Light gray secondary button */
+            color: #374151;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+            /* Darker gray on hover */
+        }
+
+        .section-title {
+            color: #1F2937;
+            /* Darker text for titles */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        select {
+            appearance: none;
+            /* Remove default arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.25rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .annotation {
+            font-size: 0.8rem;
+            color: #6b7280;
+            /* Gray text for annotations */
+            margin-top: 0.5rem;
+            text-align: left;
+            border-left: 2px solid #a7f3d0;
+            /* Light green border */
+            padding-left: 0.5rem;
+        }
+
+        .appointment-card {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            /* Full rounded */
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .status-confirmed {
+            background-color: #d1fae5;
+            /* Green-100 */
+            color: #065f46;
+            /* Green-800 */
+        }
+
+        .status-pending {
+            background-color: #fffbeb;
+            /* Yellow-100 */
+            color: #92400e;
+            /* Yellow-800 */
+        }
+
+        .status-completed {
+            background-color: #e0e7ff;
+            /* Indigo-100 */
+            color: #3730a3;
+            /* Indigo-800 */
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <!-- Overall container to hold all screens and manage visibility -->
+    <div class="w-full max-w-2xl">
+
+        <!-- Screen 1: Welcome/Splash Screen -->
+        <div id="welcome-screen" class="screen-container">
+            <img src="https://placehold.co/150x150/10B981/ffffff?text=HQMA+Logo" alt="HQMA Logo" class="mb-6 rounded-full shadow-md">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to HQMA</h1>
+            <p class="text-lg text-gray-600 mb-8">Your solution for stress-free hospital appointments.</p>
+            <button id="get-started-btn" class="btn-primary w-full md:w-auto px-10 py-3 text-xl">Get Started</button>
+            <p class="annotation mt-4">
+                <strong>Annotation:</strong> This is the initial screen users see. It's designed to be clean and inviting, with a clear call to action. The logo is a placeholder.
+            </p>
+        </div>
+
+        <!-- Screen 2: Login/Signup Screen -->
+        <div id="auth-screen" class="screen-container hidden">
+            <h1 class="text-3xl section-title mb-6">Login or Register</h1>
+            <div class="w-full max-w-sm">
+                <div class="mb-4 text-left">
+                    <label for="auth-email" class="block text-sm font-medium text-gray-700 mb-1">Email / Phone Number</label>
+                    <input type="text" id="auth-email" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="e.g., your@email.com or +23480...">
+                    <p class="annotation"><strong>Annotation:</strong> User enters email or phone for authentication. Validation will be added later.</p>
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="auth-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="auth-password" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="••••••••">
+                    <p class="annotation"><strong>Annotation:</strong> Password input field. Offers secure entry.</p>
+                </div>
+                <button id="login-btn" class="btn-primary w-full mb-4">Login</button>
+                <p class="annotation"><strong>Annotation:</strong> Initiates login process. Error messages for invalid credentials should appear here.</p>
+                <p class="text-sm text-gray-600 mb-2">Don't have an account? <a href="#" id="signup-link" class="text-green-600 hover:text-green-800 font-bold text-lg">Register here</a></p>
+                <p class="text-sm text-gray-600"><a href="#" id="forgot-password-link" class="text-green-600 hover:text-green-800 font-medium">Forgot Password?</a></p>
+                <p class="annotation mt-4"><strong>Annotation:</strong> Links for new user registration and password recovery.</p>
+            </div>
+        </div>
+
+        <!-- Screen 3: Home/Dashboard Screen -->
+        <div id="home-screen" class="screen-container hidden">
+            <h1 class="text-3xl section-title mb-8">Welcome, <span id="display-user-name">Patient!</span></h1>
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="p-6 bg-green-50 rounded-lg shadow-sm flex flex-col items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-green-600 mb-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <button id="book-new-appointment-btn" class="btn-primary w-full py-3 text-lg">Book New Appointment</button>
+                    <p class="annotation"><strong>Annotation:</strong> Main action button to start the appointment booking process for a future slot.</p>
+                </div>
+                <div class="p-6 bg-blue-50 rounded-lg shadow-sm flex flex-col items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-blue-600 mb-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12V12Zm.375 0h.008v.008h-.008V12Zm.375 0h.008v.008h-.008V12Zm.375 0h.008v.008h-.008V12Zm.375 0h.008v.008h-.008V12Zm.375 0h.008v.008h-.008V12Z" />
+                    </svg>
+                    <button id="view-appointments-btn" class="btn-secondary w-full py-3 text-lg">View My Appointments</button>
+                    <p class="annotation"><strong>Annotation:</strong> Allows users to see past and upcoming scheduled appointments.</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mt-6"><a href="#" id="profile-link" class="text-gray-600 hover:text-gray-800 font-medium">Manage Profile</a></p>
+            <p class="annotation"><strong>Annotation:</strong> Link to user profile settings and personal information management.</p>
+        </div>
+
+        <!-- Screen 4: Book Appointment - Step 1 (Patient Details & Doctor/Specialty) -->
+        <div id="book-step1-screen" class="screen-container hidden">
+            <h1 class="text-3xl section-title mb-6">Book Appointment (1/2)</h1>
+
+            <!-- Patient Information -->
+            <section class="mb-8 w-full">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 text-left">1. Your Details</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1 text-left">Full Name</label>
+                        <input type="text" id="full-name" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="John Doe">
+                        <p class="annotation"><strong>Annotation:</strong> Required field for patient's full name.</p>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1 text-left">Email Address</label>
+                        <input type="email" id="email" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="john.doe@example.com">
+                        <p class="annotation"><strong>Annotation:</strong> Optional but recommended for email notifications.</p>
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1 text-left">Phone Number</label>
+                        <input type="tel" id="phone" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="+234 801 234 5678">
+                        <p class="annotation"><strong>Annotation:</strong> Primary contact for SMS notifications and token delivery. Required.</p>
+                    </div>
+                    <div>
+                        <label for="dob" class="block text-sm font-medium text-gray-700 mb-1 text-left">Date of Birth</label>
+                        <input type="date" id="dob" class="input-field w-full focus:ring-green-500 focus:border-green-500">
+                        <p class="annotation"><strong>Annotation:</strong> Date picker for patient's birth date. Required for medical records.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Doctor and Specialty Selection -->
+            <section class="mb-8 w-full">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 text-left">2. Select Doctor & Specialty</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="specialty" class="block text-sm font-medium text-gray-700 mb-1 text-left">Specialty</label>
+                        <select id="specialty" class="input-field w-full bg-white focus:ring-green-500 focus:border-green-500">
+                            <option value="">Select a specialty</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="pediatrics">Pediatrics</option>
+                            <option value="dermatology">Dermatology</option>
+                            <option value="orthopedics">Orthopedics</option>
+                            <option value="general">General Medicine</option>
+                        </select>
+                        <p class="annotation"><strong>Annotation:</strong> Dropdown to filter available doctors by medical specialty. Required.</p>
+                    </div>
+                    <div>
+                        <label for="doctor" class="block text-sm font-medium text-gray-700 mb-1 text-left">Doctor</label>
+                        <select id="doctor" class="input-field w-full bg-white focus:ring-green-500 focus:border-green-500">
+                            <option value="">Select a doctor</option>
+                            <option value="dr-smith">Dr. Sarah Smith (Cardiology)</option>
+                            <option value="dr-jones">Dr. David Jones (Pediatrics)</option>
+                            <option value="dr-davis">Dr. Emily Davis (Dermatology)</option>
+                        </select>
+                        <p class="annotation"><strong>Annotation:</strong> Dropdown lists doctors. Should dynamically update based on selected specialty. Required.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="w-full flex justify-between">
+                <button id="back-to-home-s4" class="btn-secondary">Back</button>
+                <button id="next-step1-btn" class="btn-primary">Next: Date & Payment</button>
+            </div>
+            <p class="annotation mt-4"><strong>Annotation:</strong> "Back" navigates to home. "Next" proceeds to the next booking step. Validation is relaxed for wireframe navigation.</p>
+        </div>
+
+        <!-- Screen 5: Book Appointment - Step 2 (Date/Time & Payment) -->
+        <div id="book-step2-screen" class="screen-container hidden">
+            <h1 class="text-3xl section-title mb-6">Book Appointment (2/2)</h1>
+
+            <!-- Date and Time Selection -->
+            <section class="mb-8 w-full">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 text-left">3. Choose Date & Time</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="appointment-date" class="block text-sm font-medium text-gray-700 mb-1 text-left">Preferred Date</label>
+                        <input type="date" id="appointment-date" class="input-field w-full focus:ring-green-500 focus:border-green-500">
+                        <p class="annotation"><strong>Annotation:</strong> Date picker for appointment. Required. The app will assign a time based on this date.</p>
+                    </div>
+                    <div>
+                        <label for="assigned-time" class="block text-sm font-medium text-gray-700 mb-1 text-left">Assigned Time</label>
+                        <input type="text" id="assigned-time" class="input-field w-full bg-gray-100 text-gray-700 cursor-not-allowed" value="Time will be assigned automatically" readonly>
+                        <p class="annotation"><strong>Annotation:</strong> This field is read-only. The system assigns the specific time slot after booking is confirmed.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Details -->
+            <section class="mb-8 w-full">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800 text-left">4. Payment Details</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1 text-left">Card Number (Placeholder)</label>
+                        <input type="text" id="card-number" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="XXXX XXXX XXXX XXXX">
+                        <p class="annotation"><strong>Annotation:</strong> Field for credit/debit card number. This is a placeholder for actual payment gateway integration.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="expiry-date" class="block text-sm font-medium text-gray-700 mb-1 text-left">Expiry Date</label>
+                            <input type="text" id="expiry-date" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="MM/YY">
+                            <p class="annotation"><strong>Annotation:</strong> Card expiry date. Needs input mask/validation.</p>
+                        </div>
+                        <div>
+                            <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1 text-left">CVV</label>
+                            <input type="text" id="cvv" class="input-field w-full focus:ring-green-500 focus:border-green-500" placeholder="123">
+                            <p class="annotation"><strong>Annotation:</strong> Card verification value. Needs input mask/validation.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-2 text-left">Note: This is a placeholder for payment integration. A real implementation would use a secure payment gateway.</p>
+            </section>
+
+            <div class="w-full flex justify-between">
+                <button id="back-step2-btn" class="btn-secondary">Back</button>
+                <button id="confirm-pay-btn" class="btn-primary">Confirm & Pay</button>
+            </div>
+            <p class="annotation mt-4"><strong>Annotation:</strong> "Back" returns to the previous booking step. "Confirm & Pay" initiates payment and finalizes booking. Validation is relaxed for wireframe navigation.</p>
+        </div>
+
+        <!-- Screen 6: Appointment Confirmation/Details Screen -->
+        <div id="confirmation-screen" class="screen-container hidden">
+            <h1 class="text-3xl font-bold mb-4 text-green-700">Appointment Confirmed!</h1>
+            <p class="text-lg text-gray-700 mb-6">Your appointment has been successfully booked.</p>
+
+            <div class="bg-green-50 p-6 rounded-lg border border-green-200 w-full mb-8">
+                <p class="text-xl font-semibold mb-2">Digital Token: <span id="final-token" class="text-green-600">HQMA-XXXX</span></p>
+                <p class="text-xl font-semibold">Estimated Wait Time: <span id="final-wait-time" class="text-green-600">~ 15-30 minutes after arrival</span></p>
+                <p class="annotation mt-4"><strong>Annotation:</strong> The unique digital token for the patient's queue and an estimated wait time. This is crucial for reducing physical wait times and managing expectations.</p>
+            </div>
+
+            <div class="text-left text-base text-gray-800 w-full mb-8">
+                <h2 class="text-xl font-semibold mb-4">Your Appointment Details:</h2>
+                <p class="mb-1"><strong class="font-medium">Patient Name:</strong> <span id="final-name"></span></p>
+                <p class="mb-1"><strong class="font-medium">Doctor:</strong> <span id="final-doctor"></span></p>
+                <p class="mb-1"><strong class="font-medium">Specialty:</strong> <span id="final-specialty"></span></p>
+                <p class="mb-1"><strong class="font-medium">Date:</strong> <span id="final-date"></span></p>
+                <p class="mb-1"><strong class="font-medium">Time:</strong> <span id="final-time"></span></p>
+                <p class="annotation mt-4"><strong>Annotation:</strong> A summary of the booked appointment for user's reference, including the automatically assigned time.</p>
+            </div>
+
+            <p class="text-base text-gray-700 mt-6 p-3 bg-red-50 rounded-lg border border-red-200 w-full">
+                <strong class="text-red-700">Important:</strong> Please proceed to the Triage Nurse Station upon arrival for initial vital checks (blood pressure and pulse) before seeing the doctor.
+            <p class="annotation mt-2"><strong>Annotation:</strong> Critical instruction for all patients on the next physical step in the hospital.</p>
+            </p>
+
+            <button id="back-to-home-final" class="btn-primary w-full md:w-auto px-8 py-3 mt-8">Back to Home</button>
+            <p class="annotation mt-4"><strong>Annotation:</strong> Button to navigate back to the main dashboard of the app after viewing confirmation.</p>
+        </div>
+
+        <!-- New Screen 7: My Appointments Screen -->
+        <div id="my-appointments-screen" class="screen-container hidden">
+            <h1 class="text-3xl section-title mb-6">My Appointments</h1>
+
+            <div id="appointments-list" class="w-full mb-8">
+                <!-- Dummy Appointments will be populated here -->
+                <div class="appointment-card">
+                    <h3 class="text-lg font-semibold text-gray-900 flex justify-between items-center mb-2">
+                        Dr. Sarah Smith <span class="status-badge status-confirmed">Confirmed</span>
+                    </h3>
+                    <p class="text-gray-700 mb-1"><strong>Specialty:</strong> Cardiology</p>
+                    <p class="text-gray-700 mb-1"><strong>Date:</strong> 2025-07-10</p>
+                    <p class="text-gray-700 mb-1"><strong>Assigned Time:</strong> 10:15 AM</p>
+                    <p class="text-gray-700 mb-1"><strong>Token:</strong> APPT-5678</p>
+                    <p class="annotation"><strong>Annotation:</strong> Example of a confirmed upcoming appointment.</p>
+                </div>
+
+                <div class="appointment-card">
+                    <h3 class="text-lg font-semibold text-gray-900 flex justify-between items-center mb-2">
+                        Dr. David Jones <span class="status-badge status-pending">Pending</span>
+                    </h3>
+                    <p class="text-gray-700 mb-1"><strong>Specialty:</strong> Pediatrics</p>
+                    <p class="text-gray-700 mb-1"><strong>Date:</strong> 2025-07-15</p>
+                    <p class="text-gray-700 mb-1"><strong>Assigned Time:</strong> 02:00 PM</p>
+                    <p class="text-gray-700 mb-1"><strong>Token:</strong> APPT-9101</p>
+                    <p class="annotation"><strong>Annotation:</strong> Example of a pending appointment, awaiting final confirmation or pre-payment.</p>
+                </div>
+
+                <div class="appointment-card">
+                    <h3 class="text-lg font-semibold text-gray-900 flex justify-between items-center mb-2">
+                        Dr. Emily Davis <span class="status-badge status-completed">Completed</span>
+                    </h3>
+                    <p class="text-gray-700 mb-1"><strong>Specialty:</strong> Dermatology</p>
+                    <p class="text-gray-700 mb-1"><strong>Date:</strong> 2025-06-20</p>
+                    <p class="text-gray-700 mb-1"><strong>Assigned Time:</strong> 11:45 AM</p>
+                    <p class="text-gray-700 mb-1"><strong>Token:</strong> APPT-1234</p>
+                    <p class="annotation"><strong>Annotation:</strong> Example of a past, completed appointment.</p>
+                </div>
+
+                <p class="annotation mt-4"><strong>Annotation:</strong> This section displays a list of the user's appointments, with key details and their status.</p>
+            </div>
+
+            <button id="back-to-home-appointments" class="btn-secondary w-full md:w-auto">Back to Home</button>
+            <p class="annotation mt-4"><strong>Annotation:</strong> Button to navigate back to the main dashboard.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Screen Management ---
+        const screens = {
+            'welcome': document.getElementById('welcome-screen'),
+            'auth': document.getElementById('auth-screen'),
+            'home': document.getElementById('home-screen'),
+            'book-step1': document.getElementById('book-step1-screen'),
+            'book-step2': document.getElementById('book-step2-screen'),
+            'confirmation': document.getElementById('confirmation-screen'),
+            'my-appointments': document.getElementById('my-appointments-screen') // New screen added
+        };
+
+        let currentScreen = 'welcome'; // Initial screen
+
+        function showScreen(screenId) {
+            for (const id in screens) {
+                if (screens.hasOwnProperty(id)) {
+                    screens[id].classList.add('hidden');
+                }
+            }
+            screens[screenId].classList.remove('hidden');
+            currentScreen = screenId;
+        }
+
+        // --- Data Elements (re-using IDs for consistency across screens where applicable) ---
+        const fullNameInput = document.getElementById('full-name');
+        const specialtySelect = document.getElementById('specialty');
+        const doctorSelect = document.getElementById('doctor');
+        const appointmentDateInput = document.getElementById('appointment-date');
+        const assignedTimeInput = document.getElementById('assigned-time'); // Element for assigned time
+
+        // Elements for confirmation display (across screens)
+        const finalToken = document.getElementById('final-token');
+        const finalWaitTime = document.getElementById('final-wait-time');
+        const finalName = document.getElementById('final-name');
+        const finalDoctor = document.getElementById('final-doctor');
+        const finalSpecialty = document.getElementById('final-specialty');
+        const finalDate = document.getElementById('final-date');
+        const finalTime = document.getElementById('final-time'); // Will now show assigned time
+
+        // Function to populate the confirmation screen dynamically
+        function populateConfirmationScreen(data) {
+            finalToken.textContent = data.token;
+            finalWaitTime.textContent = data.waitTime;
+            finalName.textContent = data.name;
+            finalDoctor.textContent = data.doctor;
+            finalSpecialty.textContent = data.specialty;
+            finalDate.textContent = data.date;
+            finalTime.textContent = data.time; // Use the automatically assigned time
+            showScreen('confirmation');
+        }
+
+        // --- Navigation Logic ---
+
+        // Welcome Screen
+        document.getElementById('get-started-btn').addEventListener('click', () => {
+            showScreen('auth');
+        });
+
+        // Auth Screen
+        document.getElementById('login-btn').addEventListener('click', () => {
+            // In a real app, perform authentication here
+            const userEmail = document.getElementById('auth-email').value;
+            if (userEmail) {
+                document.getElementById('display-user-name').textContent = userEmail.split('@')[0]; // Simple display name
+            } else {
+                document.getElementById('display-user-name').textContent = 'User';
+            }
+            showScreen('home');
+        });
+        document.getElementById('signup-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Redirect to Signup Page (wireframe not included)'); // Placeholder for now
+        });
+        document.getElementById('forgot-password-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Redirect to Forgot Password Page (wireframe not included)'); // Placeholder for now
+        });
+
+
+        // Home Screen
+        document.getElementById('book-new-appointment-btn').addEventListener('click', () => {
+            showScreen('book-step1');
+        });
+        document.getElementById('view-appointments-btn').addEventListener('click', () => {
+            // No dynamic population needed for wireframe, as dummy data is static
+            showScreen('my-appointments');
+        });
+        document.getElementById('profile-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Redirect to Profile Management Page (wireframe not included)'); // Placeholder for now
+        });
+
+        // Book Appointment - Step 1
+        document.getElementById('back-to-home-s4').addEventListener('click', () => {
+            showScreen('home');
+        });
+        document.getElementById('next-step1-btn').addEventListener('click', () => {
+            showScreen('book-step2');
+        });
+
+
+        // Book Appointment - Step 2
+        document.getElementById('back-step2-btn').addEventListener('click', () => {
+            showScreen('book-step1');
+        });
+        document.getElementById('confirm-pay-btn').addEventListener('click', () => {
+            // Simulate assigning a time based on the date selected
+            const assignedHour = 9 + Math.floor(Math.random() * 8); // Random hour between 9 AM and 4 PM
+            const assignedMinute = Math.random() < 0.5 ? '00' : '30';
+            const assignedTime = `${assignedHour.toString().padStart(2, '0')}:${assignedMinute} AM`; // Added AM/PM for better display
+
+
+            // Simulate booking and data for confirmation
+            const token = 'APPT-' + Math.floor(1000 + Math.random() * 9000); // Appointment specific token
+            const waitTime = '~ ' + Math.floor(15 + Math.random() * 30) + '-' + Math.floor(40 + Math.random() * 20) + ' minutes after arrival';
+
+            populateConfirmationScreen({
+                token: token,
+                waitTime: waitTime,
+                name: fullNameInput.value || 'Patient Name (Unspecified)', // Use value or placeholder
+                doctor: doctorSelect.options[doctorSelect.selectedIndex].text || 'Doctor (Unspecified)',
+                specialty: specialtySelect.options[specialtySelect.selectedIndex].text || 'Specialty (Unspecified)',
+                date: appointmentDateInput.value || 'Date (Unspecified)', // Use value or placeholder
+                time: `Assigned: ${assignedTime}` // Display the simulated assigned time
+            });
+            // Clear appointment fields after submission
+            fullNameInput.value = '';
+            specialtySelect.value = '';
+            doctorSelect.value = '';
+            appointmentDateInput.value = '';
+            document.getElementById('card-number').value = '';
+            document.getElementById('expiry-date').value = '';
+            document.getElementById('cvv').value = '';
+        });
+
+
+        // Confirmation Screen
+        document.getElementById('back-to-home-final').addEventListener('click', () => {
+            showScreen('home');
+        });
+
+        // My Appointments Screen
+        document.getElementById('back-to-home-appointments').addEventListener('click', () => {
+            showScreen('home');
+        });
+
+
+        // Initialize to show the welcome screen first
+        showScreen('welcome');
+    </script>
+</body>
+
+</html>
